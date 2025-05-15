@@ -6,7 +6,7 @@ menu () {
 	echo "[2] Install NixOS"
 	echo "[3] Exit"
 	echo ""
-	read -n 1 -s -p "Your choice:> "
+	read -n 1 -s -p "Your choice:> " ans
 	clear
 	if [ $ans = "1" ]; then
 		partchoice
@@ -90,13 +90,12 @@ guthib () {
 	read -n 1 -s -p "Does https://github.com/$una/$rna.git look correct? [y/n] " rans
 	clear
 	if [ $rans = "y" ]; then
-		git clone https://github.com/$rna/$rna.git
+		git clone https://github.com/$una/$rna.git
 		cd $rna
 		sudo rm -rf /mnt/etc/nixos/configuration.nix
 		sudo cp configuration.nix /mnt/etc/nixos
 		sudo cp flake.nix /mnt/etc/nixos
 		sudo cp flake.lock /mnt/etc/nixos
-		sudo nixos-install
 		final
 	elif [ $rans = "n" ]; then
 		guthib
@@ -106,19 +105,14 @@ guthib () {
 }
 minimall () {
 	sudo nano /mnt/etc/nixos/configuration.nix
-	sudo nixos-install
 	final
 }
 final () {
-	clear
-	read -n 1 -s -p "Is there a user in the nixos config file? [y/n] " fans
-	echo ""
-	if [ $fans = "y" ]; then
-		read -p "Type in the username here:> " sysuna
-		sudo nixos-enter --root /mnt -c 'passwd $sysuna'
+	read -n 1 -s -p "Do you want to reboot? [y/n] " hans
+	if [ $hard = "y" ]; then
 		reboot
-	elif [ $fans = "n" ]; then
-		reboot
+	elif [ $ans = "n" ]; then
+		exit
 	else
 		final
 	fi
