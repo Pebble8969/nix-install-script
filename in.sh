@@ -94,7 +94,8 @@ guthib () {
 		cd $rna
 		sudo rm -rf /mnt/etc/nixos/configuration.nix
 		sudo cp configuration.nix /mnt/etc/nixos
-		sudo cp flake.nix /mnt/etc/nixos
+  		sudo mkdir -p /mnt/etc/flakes
+		sudo cp flake.nix /mnt/flakes
   		sudo nano /mnt/etc/nixos/configuration.nix
 		final
 	elif [ $rans = "n" ]; then
