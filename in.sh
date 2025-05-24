@@ -95,7 +95,7 @@ guthib () {
 		sudo rm -rf /mnt/etc/nixos/configuration.nix
 		sudo cp configuration.nix /mnt/etc/nixos
 		sudo cp flake.nix /mnt/etc/nixos
-		sudo cp flake.lock /mnt/etc/nixos
+  		sudo nano /mnt/etc/nixos/configuration.nix
 		final
 	elif [ $rans = "n" ]; then
 		guthib
@@ -108,10 +108,12 @@ minimall () {
 	final
 }
 final () {
+	sudo nixos-install
+ 	nixos-enter --root /mnt -c 'passwd pebble'
 	read -n 1 -s -p "Do you want to reboot? [y/n] " hans
-	if [ $hard = "y" ]; then
-		reboot
-	elif [ $ans = "n" ]; then
+	if [ $hans = "y" ]; then
+		sudo reboot
+	elif [ $hans = "n" ]; then
 		exit
 	else
 		final
