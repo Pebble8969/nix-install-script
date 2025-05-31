@@ -111,7 +111,7 @@ minimall () {
 }
 final () {
 	sudo nixos-install
- 	nixos-enter --root /mnt -c 'passwd pebble'
+ 	sudo nixos-enter --root /mnt -c 'passwd pebble'
 	read -n 1 -s -p "Do you want to reboot? [y/n] " hans
 	if [ $hans = "y" ]; then
 		sudo reboot
