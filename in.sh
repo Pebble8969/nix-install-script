@@ -89,13 +89,14 @@ guthib () {
 	echo ""
 	read -n 1 -s -p "Does https://github.com/$una/$rna.git look correct? [y/n] " rans
 	clear
+ 	read -n 1 -s -p "DISCLAIMER: no flake support yet, uncomment any flake support in your config just for the installation, flakes will be in /etc/flakes if you had any."
 	if [ $rans = "y" ]; then
 		git clone https://github.com/$una/$rna.git
 		cd $rna
 		sudo rm -rf /mnt/etc/nixos/configuration.nix
 		sudo cp configuration.nix /mnt/etc/nixos
   		sudo mkdir -p /mnt/etc/flakes
-		sudo cp flake.nix /mnt/flakes
+		sudo cp flake.nix /mnt/etc/flakes
   		sudo nano /mnt/etc/nixos/configuration.nix
 		final
 	elif [ $rans = "n" ]; then
