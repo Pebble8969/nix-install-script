@@ -47,18 +47,18 @@ partmbr () {
 	choice
 }
 partgpt () {
-	sudo parted /dev/sda -- mklabel gpt
-	sudo parted /dev/sda -- mkpart root ext4 512MB -8GB
-	sudo parted /dev/sda -- mkpart swap linux-swap -8GB 100%
-	sudo parted /dev/sda -- mkpart ESP fat32 1MB 512MB
-	sudo parted /dev/sda -- set 3 esp on
-	sudo mkfs.ext4 -L nixos /dev/sda1
-	sudo mkswap -L swap /dev/sda2
-	sudo mkfs.fat -F 32 -n boot /dev/sda3
-	sudo mount /dev/sda1 /mnt
+	sudo parted /dev/nvme0n1 -- mklabel gpt
+	sudo parted /dev/nvme0n1 -- mkpart root ext4 512MB -8GB
+	sudo parted /dev/nvme0n1 -- mkpart swap linux-swap -8GB 100%
+	sudo parted /dev/nvme0n1 -- mkpart ESP fat32 1MB 512MB
+	sudo parted /dev/nvme0n1 -- set 3 esp on
+	sudo mkfs.ext4 -L nixos /dev/nvme0n1p1
+	sudo mkswap -L swap /dev/nvme0n1p2
+	sudo mkfs.fat -F 32 -n boot /dev/nvme0n1p3
+	sudo mount /dev/nvme0n1p1 /mnt
 	sudo mkdir -p /mnt/boot
-	sudo mount -o umask=077 /dev/sda3 /mnt/boot
-	sudo swapon /dev/sda2
+	sudo mount -o umask=077 /dev/nvme0n1p3 /mnt/boot
+	sudo swapon /dev/nvme0n1p2
 	clear
 	choice
 }
